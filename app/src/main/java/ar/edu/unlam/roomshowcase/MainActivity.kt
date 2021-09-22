@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.room.Room
-import ar.edu.unlam.roomshowcase.item.Item
+import ar.edu.unlam.roomshowcase.robot.Robot
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         fun abmDemo(context: Context) {
             val database = buildDatabase(context)
             val itemDao = database.itemDao()
-            itemDao.insert(Item(name = "2B"))
+            itemDao.insert(Robot(name = "2B"))
             itemDao.delete(itemDao.getById(1L).first())
             print("Mostrando elementos después de borrar")
             itemDao.getAll().forEach {

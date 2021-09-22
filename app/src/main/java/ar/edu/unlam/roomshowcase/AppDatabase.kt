@@ -2,13 +2,13 @@ package ar.edu.unlam.roomshowcase
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import ar.edu.unlam.roomshowcase.item.Item
-import ar.edu.unlam.roomshowcase.item.ItemDao
+import ar.edu.unlam.roomshowcase.robot.Robot
+import ar.edu.unlam.roomshowcase.robot.RobotDao
 
 @Database(
-    entities = [Item::class],
+    entities = [Robot::class],
     version = 2
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun itemDao(): ItemDao
+    abstract fun itemDao(): RobotDao
 }
