@@ -8,10 +8,10 @@ import androidx.room.Query
 @Dao
 interface RobotDao {
 
-    @Query("SELECT * FROM items")
+    @Query("SELECT * FROM robots")
     fun getAll(): List<Robot>
 
-    @Query("SELECT * FROM items WHERE id = :id")
+    @Query("SELECT * FROM robots WHERE id = :id")
     fun getById(id: Long): List<Robot>
 
     @Delete
@@ -19,4 +19,7 @@ interface RobotDao {
 
     @Insert
     fun insert(vararg robot: Robot)
+
+    @Query("INSERT INTO robots (name) VALUES ('2b, 9s, r2d2')")
+    fun populate()
 }

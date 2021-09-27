@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Items")
+@Entity(tableName = "robots")
 data class Robot(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
