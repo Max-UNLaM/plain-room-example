@@ -30,3 +30,21 @@ android {
     }
 }
 ```
+
+## Consideraciones técnicas
+
+Se han realizado algunos workarounds para poder consumir Room sin elevar el grado de complejidad
+visto hasta ahora. En próximos proyectos veremos como resolver estas cuestiones de forma más
+eficiente.
+
+### Inyección Manual
+
+El Main Activity está construyendo sus dependencias manualmente durante su propia construcción. Esto
+será reemplazado por una más apropiada Inyección en un proyecto posterior.
+
+### Queries en thread principal
+
+Se está construyendo a la base de datos usando allowMainThreadQueries(). Esto permite realizar
+ejecuciones sincrónicas en el hilo principal del proyecto. Idóneamente, esto no debiera de ser
+llamado y las queries debieran de ser realizadas asincrónicamente para no bloquear la ejecución del
+programa. Veremos este comportamiento en un proyecto posterior.
