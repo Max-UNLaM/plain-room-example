@@ -3,10 +3,18 @@ package ar.edu.unlam.roomshowcase
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
-import ar.edu.unlam.roomshowcase.item.Item
+import ar.edu.unlam.roomshowcase.databinding.ActivityMainBinding
+import ar.edu.unlam.roomshowcase.robot.RobotDao
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var database: AppDatabase
+    private lateinit var robotDao: RobotDao
+    private lateinit var robotAdapter: RobotAdapter
+    private lateinit var robotBinding: ActivityMainBinding
 
     companion object {
         private fun buildDatabase(context: Context): AppDatabase {
@@ -14,30 +22,43 @@ class MainActivity : AppCompatActivity() {
                 context,
                 AppDatabase::class.java,
                 "room-showroom-db"
-            ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
-        }
-
-        /**
-         * Construirá/entablará la conexión con la base de datos, insertará un elemento en una
-         * tabla, imprimirá en consolo los elemntos insertados, borrará el elemento insertado,
-         * y volverá a imprimir los elementos que queden en la tabla.
-         */
-        fun abmDemo(context: Context) {
-            val database = buildDatabase(context)
-            val itemDao = database.itemDao()
-            itemDao.insert(Item(name = "2B"))
-            itemDao.delete(itemDao.getById(1L).first())
-            print("Mostrando elementos después de borrar")
-            itemDao.getAll().forEach {
-                print(it.name)
-            }
+            )
+                .allowMainThreadQueries()
+                .addMigrations(MIGRATION_1_2)
+                .build()
         }
     }
 
+    /**
+     * Manual dependency injection
+     */
+    private fun injectDependencies() {
+        this.database = buildDatabase(this.applicationContext)
+        this.robotDao = this.database.robotDao()
+        this.robotAdapter = RobotAdapter { }
+    }
+
+    private fun setupRecyclerView() {
+        robotBinding.recyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        robotBinding.recyclerView.adapter = robotAdapter
+    }
+
+    private fun populate() {
+        var robots = robotDao.getAll()
+        if (robots.isEmpty()) {
+            this.robotDao.populate()
+            robots = this.robotDao.getAll()
+        }
+        robotAdapter.updateRobots(robots)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        abmDemo(applicationContext)
-        setContentView(R.layout.activity_main)
+        robotBinding = ActivityMainBinding.inflate(LayoutInflater.from(this))
+        injectDependencies()
+        setContentView(robotBinding.root)
+        setupRecyclerView()
+        populate()
     }
 }

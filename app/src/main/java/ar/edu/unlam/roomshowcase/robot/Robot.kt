@@ -1,11 +1,11 @@
-package ar.edu.unlam.roomshowcase.item
+package ar.edu.unlam.roomshowcase.robot
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Items")
-data class Item(
+@Entity(tableName = "robots")
+data class Robot(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Long = 0,
