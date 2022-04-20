@@ -7,18 +7,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import ar.edu.unlam.roomshowcase.robot.Robot
 import ar.edu.unlam.roomshowcase.robot.RobotDao
 
-val MIGRATION_1_2  = object : Migration(1, 2) {
-    override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL(
-            """
-            INSERT INTO robots (name)
-            VALUES("2b"),("rd2d");
-            """
-        )
-    }
-}
-
-
 @Database(
     entities = [Robot::class],
     version = 3

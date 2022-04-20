@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
                 "room-showroom-db"
             )
                 .allowMainThreadQueries()
-                .addMigrations(MIGRATION_1_2)
+                .fallbackToDestructiveMigration()
                 .build()
         }
     }
