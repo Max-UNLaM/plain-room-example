@@ -10,6 +10,8 @@ repositorio. Un proyecto con esas características se verá en otro repositorio.
 
  ```gradle
  
+apply plugin: "kotlin-kapt"
+ 
 dependencies {
     def room_version = "2.3.0"
     

@@ -20,6 +20,6 @@ interface RobotDao {
     @Insert
     fun insert(vararg robot: Robot)
 
-    @Query("INSERT INTO robots (name) VALUES ('2b, 9s, r2d2')")
+    @Query("INSERT INTO robots (name) VALUES ('2b, 9s, r2d2, C17')")
     fun populate()
 }
